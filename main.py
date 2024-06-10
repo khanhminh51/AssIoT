@@ -10,5 +10,4 @@ while True:
     if(publishdata("humi", humi)):
         print("Publish humi success")
 
-    setDevice1(True)
     time.sleep(5)
