@@ -3,7 +3,7 @@ from Adafruit_IO import MQTTClient
 import time
 from rs485 import *
 
-AIO_FEED_IDs = ["realy1", "relay2"]
+AIO_FEED_IDs = ["relay1", "relay2"]
 AIO_USERNAME = "minhpham51"
 AIO_KEY = ""
 
@@ -36,19 +36,20 @@ def publishdata(sensor_type, data):
     time.sleep(1)
     
 def message(client , feed_id , payload):
+    print("Nhan du lieu: " + payload + ", feed id:" + feed_id)
     if feed_id == "relay1":
         if payload == "255":
             print("Relay 1 on")
-            setDevice1(True)
+            print(setDevice1(True))
         elif payload == "0":
             print("Relay 1 off")
-            setDevice1(False)
+            print(setDevice1(False))
     elif feed_id == "relay2":
         if payload == "255":
             print("Relay 2 on")
-            setDevice2(True)
+            print(setDevice2(True))
         elif payload == "0":
             print("Relay 2 off")
-            setDevice2(False)
+            print(setDevice2(False))
 
 client.on_message = message
