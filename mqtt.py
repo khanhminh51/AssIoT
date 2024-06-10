@@ -35,21 +35,20 @@ def publishdata(sensor_type, data):
         client.publish("humidity", data)
     time.sleep(1)
     
-def on_relay_control(client, userdata, message):
-    command = message.payload.decode()
-    if message.topic == "relay1":
-        if command == "255":
+def message(client , feed_id , payload):
+    if feed_id == "relay1":
+        if payload == "255":
             print("Relay 1 on")
             setDevice1(True)
-        elif command == "0":
+        elif payload == "0":
             print("Relay 1 off")
             setDevice1(False)
-    elif message.topic == "relay2":
-        if command == "255":
+    elif feed_id == "relay2":
+        if payload == "255":
             print("Relay 2 on")
             setDevice2(True)
-        elif command == "0":
+        elif payload == "0":
             print("Relay 2 off")
             setDevice2(False)
 
-client.on_message = on_relay_control
+client.on_message = message
