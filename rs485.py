@@ -13,16 +13,16 @@ def getPort():
         if "USB" in strPort:
             splitPort = strPort.split(" ")
             commPort = (splitPort[0])
-    return commPort
-    # return "/dev/ttyUSB1"
+    # return commPort
+    return "/dev/ttyUSB1"
 
-# portName = "/dev/ttyUSB1"
+portName = "/dev/ttyUSB1"
 # print(portName)
 
 
 
 try:
-    ser = serial.Serial(port=getPort(), baudrate=115200)
+    ser = serial.Serial(port=portName, baudrate=115200)
     print("Open successfully")
 except:
     print("Can not open the port")
@@ -71,15 +71,15 @@ def readMoisture():
     time.sleep(1)
     return serial_read_data(ser)
 
-while True:
-    print("TEST SENSOR")
-    print(readMoisture())
-    time.sleep(1)
-    print(readTemperature())
-    time.sleep(1)
-
 # while True:
-#     setDevice2(True)
-#     time.sleep(2)
-#     setDevice2(False)
-#     time.sleep(2)
+#     print("TEST SENSOR")
+#     print(readMoisture())
+#     time.sleep(1)
+#     print(readTemperature())
+#     time.sleep(1)
+
+while True:
+    setDevice2(True)
+    time.sleep(2)
+    setDevice2(False)
+    time.sleep(2)
