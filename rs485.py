@@ -35,30 +35,86 @@ def serial_read_data(ser):
             return -1
     return 0
 
-relay1_ON  = [1, 6, 0, 0, 0, 255, 201, 138]
-relay1_OFF = [1, 6, 0, 0, 0, 0, 137, 202]
+IDLE_STATE_ON  = [8, 6, 0, 0, 0, 255, 201, 19] #relay8
+IDLE_STATE_OFF = [8, 6, 0, 0, 0, 0, 137, 83]
 
-def setDevice1(state):
+def set_IDLE_STATE(state):
     if state == True:
-        ser.write(relay1_ON)
+        ser.write(IDLE_STATE_ON)
     else:
-        ser.write(relay1_OFF)
+        ser.write(IDLE_STATE_OFF)
     time.sleep(1)
     return serial_read_data(ser)
 
 
-relay2_ON  = [2, 6, 0, 0, 0, 255, 201, 185]
-relay2_OFF = [2, 6, 0, 0, 0, 0, 137, 249]
+MIX1_STATE_ON  = [1, 6, 0, 0, 0, 255, 201, 138] #relay1
+MIX1_STATE_OFF = [1, 6, 0, 0, 0, 0, 137, 202]
 
-def setDevice2(state):
+def set_MIX1_STATE(state):
     if state == True:
-        ser.write(relay2_ON)
+        ser.write(MIX1_STATE_ON)
     else:
-        ser.write(relay2_OFF)
+        ser.write(MIX1_STATE_OFF)
     time.sleep(1)
     return serial_read_data(ser)
 
 
+MIX2_STATE_ON  = [2, 6, 0, 0, 0, 255, 201, 185] #relay2
+MIX2_STATE_OFF = [2, 6, 0, 0, 0, 0, 137, 249]
+
+def set_MIX2_STATE(state):
+    if state == True:
+        ser.write(MIX2_STATE_ON)
+    else:
+        ser.write(MIX2_STATE_OFF)
+    time.sleep(1)
+    return serial_read_data(ser)
+
+
+MIX3_STATE_ON  = [3, 6, 0, 0, 0, 255, 200, 104] #relay3
+MIX3_STATE_OFF = [3, 6, 0, 0, 0, 0, 136, 40]
+
+def set_MIX3_STATE(state):
+    if state == True:
+        ser.write(MIX3_STATE_ON)
+    else:
+        ser.write(MIX3_STATE_OFF)
+    time.sleep(1)
+    return serial_read_data(ser)
+
+
+PUMP_IN_STATE_ON  = [4, 6, 0, 0, 0, 255, 201, 223] #relay4
+PUMP_IN_STATE_OFF = [4, 6, 0, 0, 0, 0, 137, 159]
+
+def set_PUMP_IN_STATE(state):
+    if state == True:
+        ser.write(PUMP_IN_STATE_ON)
+    else:
+        ser.write(PUMP_IN_STATE_OFF)
+    time.sleep(1)
+    return serial_read_data(ser)
+
+PUMP_OUT_STATE_ON  = [5, 6, 0, 0, 0, 255, 200, 14] #relay5
+PUMP_OUT_STATE_OFF = [5, 6, 0, 0, 0, 0, 136, 78]
+
+def set_PUMP_OUT_STATE(state):
+    if state == True:
+        ser.write(PUMP_OUT_STATE_ON)
+    else:
+        ser.write(PUMP_OUT_STATE_OFF)
+    time.sleep(1)
+    return serial_read_data(ser)
+
+SELECTOR_ON  = [6, 6, 0, 0, 0, 255, 200, 61] #relay6
+SELECTOR_OFF = [6, 6, 0, 0, 0, 0, 136, 125]
+
+def set_SELECTOR_STATE(state):
+    if state == True:
+        ser.write(SELECTOR_ON)
+    else:
+        ser.write(SELECTOR_OFF)
+    time.sleep(1)
+    return serial_read_data(ser)
 # Read Temperature
 soil_temperature = [10, 3, 0, 6, 0, 1, 101, 112]
 def readTemperature():
