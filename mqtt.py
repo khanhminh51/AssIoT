@@ -6,7 +6,7 @@ from Helper import *
 
 AIO_FEED_IDs = ["relay"]
 AIO_USERNAME = "minhpham51"
-AIO_KEY = "aio_wgdD054nffWieYcUFoE96tigT1LC"
+AIO_KEY = ""
 
 def connected(client):
     print("Ket noi thanh cong ...")
