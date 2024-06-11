@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 class Helper():
     def time_now(self):
         now = datetime.now()
@@ -15,8 +16,22 @@ class Helper():
         # Chuyển đổi giờ, phút và giây thành mili giây
         milliseconds = (start_time.hour * 3600 + start_time.minute * 60 + start_time.second) * 1000
         return milliseconds
-
-
+    def stringToJson(message):
+        return json.loads(message)
+    
+# json_string = '''{
+#     "cycle": 2,
+#     "flow1": 1,
+#     "flow2": 1,
+#     "flow3": 1,
+#     "pumpIn": 1,
+#     "area": 2,
+#     "isActive": 1,
+#     "schedulerName": "LỊCH TƯỚI 1",
+#     "startTime": "8:13:00",
+#     "stopTime": "18:40:00"
+# }'''
+# print(Helper.stringToJson(json_string))
 # helper = Helper()
 # print(helper.time_now())
 # print(Helper.time_parse(Helper,"18:30"))

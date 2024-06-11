@@ -4,17 +4,7 @@ from IrrigationTask import *
 from Helper import *
 import time
 
-
-def HELLO_TASK():
-    print(datetime.now()," Hello 1s")
-
-def ONESHOT_TASK():
-    print(datetime.now()," OneShot")
-
-def DUMMY_TASK():
-    print(datetime.now()," Dummy 2s")
-
-irrigation_schedule = [
+messageFromMQTT = '''
   {
     "cycle": 2,
     "flow1": 1,
@@ -22,12 +12,15 @@ irrigation_schedule = [
     "flow3": 1,
     "pumpIn": 1,
     "area": 2,
-    "isActive": True,
+    "isActive": 1,
     "schedulerName": "LỊCH TƯỚI 1",
-    "startTime": "8:13:00",
+    "startTime": "15:42:30",
     "stopTime": "18:40:00"
   }
-]
+'''
+irrigation_schedule = []
+data = Helper.stringToJson(messageFromMQTT)
+irrigation_schedule.append(data)
 
 
 scheduler = IoT_Scheduler()
