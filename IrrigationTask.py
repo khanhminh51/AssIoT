@@ -113,13 +113,14 @@ class IrrigationTask():
                     self.flag = False
                     # TODO: Turn on Mixer1, then send notification to mobile app through Adafruit
 
-
                 else:
                     self.state = IDLE_STATE
                     self.flag = False
 
                     # TODO: Done, send notification to mobile 
 
+                # TODO: Turn off Area: Relay ID=self.area, then send notification to mobile app through Adafruit
 
                 # TODO: Turn off Pump-out, then send notification to mobile app through Adafruit
+
                 self.timer = 0
