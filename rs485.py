@@ -82,9 +82,44 @@ def set_MIX3_STATE(state):
     time.sleep(1)
     return serial_read_data(ser)
 
+AREA1_ON  = [4, 6, 0, 0, 0, 255, 201, 223] #relay4
+AREA1_OFF = [4, 6, 0, 0, 0, 0, 137, 159]
 
-PUMP_IN_STATE_ON  = [4, 6, 0, 0, 0, 255, 201, 223] #relay4
-PUMP_IN_STATE_OFF = [4, 6, 0, 0, 0, 0, 137, 159]
+def set_AREA1_STATE(state):
+    if state == True:
+        ser.write(AREA1_ON)
+    else:
+        ser.write(AREA1_OFF)
+    time.sleep(1)
+    return serial_read_data(ser)
+
+
+AREA2_ON  = [5, 6, 0, 0, 0, 255, 200, 14] #relay5
+AREA2_OFF = [5, 6, 0, 0, 0, 0, 136, 78]
+
+def set_AREA2_STATE(state):
+    if state == True:
+        ser.write(AREA2_ON)
+    else:
+        ser.write(AREA2_OFF)
+    time.sleep(1)
+    return serial_read_data(ser)
+
+
+AREA3_ON  = [6, 6, 0, 0, 0, 255, 200, 61] #relay6
+AREA3_OFF = [6, 6, 0, 0, 0, 0, 136, 125]
+
+def set_AREA3_STATE(state):
+    if state == True:
+        ser.write(AREA3_ON)
+    else:
+        ser.write(AREA3_OFF)
+    time.sleep(1)
+    return serial_read_data(ser)
+
+
+PUMP_IN_STATE_ON  =  [7, 6, 0, 0, 0, 255, 201, 236] #relay7
+PUMP_IN_STATE_OFF = [7, 6, 0, 0, 0, 0, 137, 172]
 
 def set_PUMP_IN_STATE(state):
     if state == True:
@@ -94,8 +129,9 @@ def set_PUMP_IN_STATE(state):
     time.sleep(1)
     return serial_read_data(ser)
 
-PUMP_OUT_STATE_ON  = [5, 6, 0, 0, 0, 255, 200, 14] #relay5
-PUMP_OUT_STATE_OFF = [5, 6, 0, 0, 0, 0, 136, 78]
+
+PUMP_OUT_STATE_ON  = [8, 6, 0, 0, 0, 255, 201, 19] #relay8
+PUMP_OUT_STATE_OFF = [8, 6, 0, 0, 0, 0, 137, 83]
 
 def set_PUMP_OUT_STATE(state):
     if state == True:
@@ -105,16 +141,6 @@ def set_PUMP_OUT_STATE(state):
     time.sleep(1)
     return serial_read_data(ser)
 
-SELECTOR_ON  = [6, 6, 0, 0, 0, 255, 200, 61] #relay6
-SELECTOR_OFF = [6, 6, 0, 0, 0, 0, 136, 125]
-
-def set_SELECTOR_STATE(state):
-    if state == True:
-        ser.write(SELECTOR_ON)
-    else:
-        ser.write(SELECTOR_OFF)
-    time.sleep(1)
-    return serial_read_data(ser)
 # Read Temperature
 soil_temperature = [10, 3, 0, 6, 0, 1, 101, 112]
 def readTemperature():
