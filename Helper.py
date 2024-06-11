@@ -20,7 +20,7 @@ class Helper():
         return json.loads(message)
     
 
-    #'{"type":"area", "id":1, "state":0 }'
+    #"{"type":"area", "id":1, "state":255}"
     def handlepayload(payload):
         data = json.loads(payload)
         
