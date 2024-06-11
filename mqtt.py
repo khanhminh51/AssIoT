@@ -6,7 +6,7 @@ from Helper import *
 
 AIO_FEED_IDs = ["relay"]
 AIO_USERNAME = "minhpham51"
-# AIO_KEY = ""
+AIO_KEY = ""
 
 def connected(client):
     print("Ket noi thanh cong ...")
@@ -53,7 +53,7 @@ def message(client, feed_id, payload):
                     print("Mixer 2 on")
                     print(set_MIX2_STATE(True))
                 elif state_value == "0":
-                    print("Mixer 2 off")
+                    print("Mixer 2 offf")
                     print(set_MIX2_STATE(False))
             elif id_value == "3":
                 if state_value == "255":
