@@ -35,18 +35,7 @@ def serial_read_data(ser):
             return -1
     return 0
 
-IDLE_STATE_ON  = [8, 6, 0, 0, 0, 255, 201, 19] #relay8
-IDLE_STATE_OFF = [8, 6, 0, 0, 0, 0, 137, 83]
-
-def set_IDLE_STATE(state):
-    if state == True:
-        ser.write(IDLE_STATE_ON)
-    else:
-        ser.write(IDLE_STATE_OFF)
-    time.sleep(1)
-    return serial_read_data(ser)
-
-
+##############Begin with Relay#########################
 MIX1_STATE_ON  = [1, 6, 0, 0, 0, 255, 201, 138] #relay1
 MIX1_STATE_OFF = [1, 6, 0, 0, 0, 0, 137, 202]
 
@@ -140,6 +129,8 @@ def set_PUMP_OUT_STATE(state):
         ser.write(PUMP_OUT_STATE_OFF)
     time.sleep(1)
     return serial_read_data(ser)
+
+##############End with Relay#########################
 
 # Read Temperature
 soil_temperature = [10, 3, 0, 6, 0, 1, 101, 112]
