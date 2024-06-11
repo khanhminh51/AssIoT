@@ -19,6 +19,19 @@ class Helper():
     def stringToJson(message):
         return json.loads(message)
     
+
+    #'{"type":"area", "id":1, "state":0 }'
+    def handlepayload(payload):
+        data = json.loads(payload)
+        
+        type_value = data.get("type")
+        id_value = data.get("id")
+        state_value = data.get("state")
+
+        return type_value, id_value, state_value
+
+
+    
 # json_string = '''{
 #     "cycle": 2,
 #     "flow1": 1,

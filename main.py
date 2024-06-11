@@ -1,7 +1,6 @@
 from mqtt import *
 from rs485 import *
-import firebase_admin
-from firebase_admin import credentials, db
+
 
 while True:
     temp = readTemperature()
