@@ -114,30 +114,7 @@ class Helper():
                     print(set_PUMP_OUT_STATE(False))
 
     def handleIrrigation(self, payload):
-        irrigation_schedule = []
-        data = self.stringToJson(payload)
-        irrigation_schedule.append(data)
-        scheduler = IoT_Scheduler()
-        taskList = {}
-        for schedule in irrigation_schedule:
-            task = IrrigationTask(
-                action=schedule["action"],
-                id=schedule["id"],
-                name=schedule["schedulerName"],
-                area=schedule["area"],
-                cycle=schedule["cycle"],
-                startTime=Helper.time_parse(Helper, schedule["startTime"]),
-                endTime=Helper.time_parse(Helper, schedule["stopTime"]),
-                mix1=schedule["flow1"],
-                mix2=schedule["flow2"],
-                mix3=schedule["flow3"],
-                pumpIn=schedule["pumpIn"],
-                pumpOut=schedule["pumpIn"] + schedule["flow1"] + schedule["flow2"] + schedule["flow3"],
-                isActive=schedule["isActive"]
-            )
-            task.setTaskID(scheduler.SCH_Add_Task(task.run, 0 , 1000))
-            taskList[task.taskID] = task
-        scheduler.SCH_Start()
+        pass
     
 
 

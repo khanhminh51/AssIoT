@@ -2,7 +2,7 @@ from constants import *
 from Helper import *
 from rs485 import *
 class IrrigationTask():
-    def __init__(self, name, area, cycle, startTime, endTime, mix1, mix2, mix3, pumpIn, pumpOut, isActive):
+    def __init__(self, id, name, area, cycle, startTime, endTime, mix1, mix2, mix3, pumpIn, pumpOut, isActive):
         self.name = name
         self.cycle =  cycle
         self.startTime = startTime
@@ -17,10 +17,11 @@ class IrrigationTask():
         self.pumpOut = pumpOut # time for pump out
         self.area = area # ID: 4-area1, 5-area2, 6-area3
         self.isActive = isActive
-        self.taskID = -1
+        self.taskID = id
+        self.processID = -1
 
     def setTaskID(self, taskID):
-        self.taskID = taskID
+        self.processID = taskID
 
     def setActiveState(self, isActive):
         if self.isActive == True and isActive == False:
@@ -33,6 +34,9 @@ class IrrigationTask():
             set_AREA3_STATE(False)
             set_PUMP_IN_STATE(False)
             set_PUMP_OUT_STATE(False)
+            self.timer = 0
+            self.flag  = False
+            self.state = IDLE_STATE
             # TODO: publish message if need
 
             pass
