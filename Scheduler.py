@@ -34,25 +34,34 @@ class IoT_Scheduler:
         return aTask.TaskID
 
     def SCH_Update(self):
-        for i in range(0, len(self.SCH_tasks_G)):
-          if self.SCH_tasks_G[i].Delay > 0:
-            self.SCH_tasks_G[i].Delay -= 1
-          elif self.SCH_tasks_G[i].Delay < 0:
-            self.Abort_tasks.append(self.SCH_tasks_G[i])
-          if self.SCH_tasks_G[i].Delay == 0:
-            self.SCH_tasks_G[i].Delay = self.SCH_tasks_G[i].Period
-            self.SCH_tasks_G[i].RunMe += 1
+        try: 
+            for i in range(0, len(self.SCH_tasks_G)):
+                if self.SCH_tasks_G[i].Delay > 0:
+                    self.SCH_tasks_G[i].Delay -= 1
+                elif self.SCH_tasks_G[i].Delay < 0:
+                    self.Abort_tasks.append(self.SCH_tasks_G[i])
+                if self.SCH_tasks_G[i].Delay == 0:
+                    self.SCH_tasks_G[i].Delay = self.SCH_tasks_G[i].Period
+                    self.SCH_tasks_G[i].RunMe += 1
+        except:
+            pass
 
     def SCH_Dispatch_Tasks(self):
-        for i in range(0, len(self.SCH_tasks_G)):
-            if self.SCH_tasks_G[i].RunMe > 0:
-                self.SCH_tasks_G[i].RunMe -= 1
-                self.SCH_tasks_G[i].pTask()
+        try:
+            for i in range(0, len(self.SCH_tasks_G)):
+                if self.SCH_tasks_G[i].RunMe > 0:
+                    self.SCH_tasks_G[i].RunMe -= 1
+                    self.SCH_tasks_G[i].pTask()
+        except:
+            pass
 
     def SCH_Delete(self):
-        for del_Task_id in self.Abort_tasks:
-          self.SCH_tasks_G.remove(del_Task_id)
-        self.Abort_tasks.clear()
+        try:
+            for del_Task_id in self.Abort_tasks:
+                self.SCH_tasks_G.remove(del_Task_id)
+                self.Abort_tasks.clear()
+        except:
+            pass
 
 
     def SCH_GenerateID(self):
