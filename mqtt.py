@@ -14,7 +14,7 @@ def readHumiTask():
     humi = readMoisture()
     publishdata("humi", humi)
 
-AIO_FEED_IDs = ["relay", ]
+AIO_FEED_IDs = ["relay",]
 AIO_USERNAME = "minhpham51"
 AIO_KEY = ""
 
@@ -70,6 +70,8 @@ def message(client, feed_id, payload):
             taskList[task.taskID] = task
         elif schedule["action"] == "update":
             task = taskList[schedule["id"]]
+            print("task from update: ", task)
+            print(task.startTime)
             task.setActiveState(False)
             task.name=schedule["schedulerName"],
             task.area=schedule["area"],
