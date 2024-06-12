@@ -41,6 +41,8 @@ def publishdata(sensor_type, data):
         client.publish("temperature", data)
     elif sensor_type == "humi":
         client.publish("humidity", data)
+    elif sensor_type == "noti":
+        client.publish("notification", data)
 
 
 def message(client, feed_id, payload):
@@ -64,10 +66,13 @@ def message(client, feed_id, payload):
                 mix3=schedule["flow3"],
                 pumpIn=schedule["pumpIn"],
                 pumpOut=schedule["pumpIn"] + schedule["flow1"] + schedule["flow2"] + schedule["flow3"],
-                isActive=schedule["isActive"]
+                isActive=schedule["isActive"],
+                client=client
             )
             task.setTaskID(scheduler.SCH_Add_Task(task.run, 0 , 1000))
             taskList[task.taskID] = task
+            publishdata("noti", "Tạo lịch tưới thành công!")
+        
         elif schedule["action"] == "update":
             task = taskList[schedule["id"]]
             task.setActiveState(False)
@@ -84,6 +89,7 @@ def message(client, feed_id, payload):
                 pumpOut=schedule["pumpIn"] + schedule["flow1"] + schedule["flow2"] + schedule["flow3"],
                 isActive=schedule["isActive"]
             )
+            publishdata("noti", "Cập nhật lịch tưới thành công!")
 
         elif schedule["action"] == "delete":
             index_to_remove = -1
@@ -97,6 +103,8 @@ def message(client, feed_id, payload):
             if index_to_remove != -1:
                 del scheduler.SCH_tasks_G[index_to_remove]
                 print(f"TaskID: {task.taskID} remove successfully")
+                publishdata("noti", "Xóa lịch tưới thành công!")
+
             else:
                 print("Task is not existed")
 
