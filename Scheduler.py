@@ -72,7 +72,7 @@ class IoT_Scheduler:
         SCH_thread.start()
         
 
-    
+
     def SCH_Stop(self):
         self.stopFlag = True
         print("SCHEDULER TERMINATING...")
