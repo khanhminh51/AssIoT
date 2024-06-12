@@ -1,6 +1,9 @@
 from datetime import datetime
 import json
 from rs485 import *
+from Scheduler import *
+from datetime import *
+from IrrigationTask import *
 class Helper():
     def time_now(self):
         now = datetime.now()
@@ -31,22 +34,22 @@ class Helper():
         state_value = data.get("state")
         return type_value, id_value, state_value
 
-    def handlePayloadIrrigation(payload):
-        if not payload:
-            raise ValueError("Empty payload received")
-        data = json.loads(payload)
-        action_value = data.get("action")
-        id_value = data.get("id")
-        flow1_value = data.get("flow1")
-        flow2_value = data.get("flow2")
-        flow3_value = data.get("flow3")
-        pumpIn_value = data.get("pumpIn")
-        area_value = data.get("area")
-        isActive_value = data.get("isActive")
-        startTime_value = data.get("startTime")
-        stopTime_value = data.get("stopTime")
+    # def handlePayloadIrrigation(payload):
+    #     if not payload:
+    #         raise ValueError("Empty payload received")
+    #     data = json.loads(payload)
+    #     action_value = data.get("action")
+    #     id_value = data.get("id")
+    #     flow1_value = data.get("flow1")
+    #     flow2_value = data.get("flow2")
+    #     flow3_value = data.get("flow3")
+    #     pumpIn_value = data.get("pumpIn")
+    #     area_value = data.get("area")
+    #     isActive_value = data.get("isActive")
+    #     startTime_value = data.get("startTime")
+    #     stopTime_value = data.get("stopTime")
 
-        return action_value, id_value, flow1_value, flow2_value, flow3_value, pumpIn_value, area_value, isActive_value, startTime_value, stopTime_value
+    #    return action_value, id_value, flow1_value, flow2_value, flow3_value, pumpIn_value, area_value, isActive_value, startTime_value, stopTime_value
 
     def handleRelay(self,payload):
         type_value, id_value, state_value = self.handlePayloadRelay(payload)
@@ -111,7 +114,32 @@ class Helper():
                     print(set_PUMP_OUT_STATE(False))
 
     def handleIrrigation(self, payload):
-        action_value, id_value, flow1_value, flow2_value, flow3_value, pumpIn_value, area_value, isActive_value, startTime_value, stopTime_value = self.handlePayloadIrrigation(payload)
+        irrigation_schedule = []
+        data = self.stringToJson(payload)
+        irrigation_schedule.append(data)
+        scheduler = IoT_Scheduler()
+        taskList = {}
+        for schedule in irrigation_schedule:
+            task = IrrigationTask(
+                action=schedule["action"],
+                id=schedule["id"],
+                name=schedule["schedulerName"],
+                area=schedule["area"],
+                cycle=schedule["cycle"],
+                startTime=Helper.time_parse(Helper, schedule["startTime"]),
+                endTime=Helper.time_parse(Helper, schedule["stopTime"]),
+                mix1=schedule["flow1"],
+                mix2=schedule["flow2"],
+                mix3=schedule["flow3"],
+                pumpIn=schedule["pumpIn"],
+                pumpOut=schedule["pumpIn"] + schedule["flow1"] + schedule["flow2"] + schedule["flow3"],
+                isActive=schedule["isActive"]
+            )
+            task.setTaskID(scheduler.SCH_Add_Task(task.run, 0 , 1000))
+            taskList[task.taskID] = task
+        scheduler.SCH_Start()
+    
+
 
 
 

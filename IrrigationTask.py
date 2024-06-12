@@ -66,9 +66,7 @@ class IrrigationTask():
                 self.timer = 0
                 self.flag = False
                 # TODO: Turn off Mixer1: Relay ID=1, then send notification to mobile app through Adafruit
-                set_MIX1_STATE(False)
                 # TODO: Turn on Mixer2: Relay ID=2, then send notification to mobile app through Adafruit
-                set_MIX2_STATE(True)
         elif self.state == MIX2_STATE:
 
             if self.timer >= self.mix2:
@@ -79,9 +77,7 @@ class IrrigationTask():
                 self.timer = 0
                 self.flag = False
                 # TODO: Turn off Mixer2: Relay ID=2, then send notification to mobile app through Adafruit
-                set_MIX2_STATE(False)
                 # TODO: Turn on Mixer3: Relay ID=3, then send notification to mobile app through Adafruit
-                set_MIX3_STATE(True)
 
         elif self.state == MIX3_STATE:
 
@@ -93,9 +89,7 @@ class IrrigationTask():
                 self.timer = 0
                 self.flag = False
                 # TODO: Turn off Mixer3: Relay ID=3, then send notification to mobile app through Adafruit
-                set_MIX3_STATE(False)
                 # TODO: Turn on PUMP_IN: Relay ID=7, then send notification to mobile app through Adafruit
-                set_PUMP_IN_STATE(True)
         elif self.state == PUMP_IN_STATE:
 
             if self.timer >= self.pumpIn:
