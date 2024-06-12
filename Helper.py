@@ -21,7 +21,9 @@ class Helper():
     
 
     #"{"type":"area", "id":1, "state":255}"
-    def handlepayload(payload):
+    def handlepayload(self, payload):
+        if not payload:
+            raise ValueError("Empty payload received")
         data = json.loads(payload)
         
         type_value = data.get("type")
