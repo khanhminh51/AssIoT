@@ -67,6 +67,7 @@ def message(client, feed_id, payload):
                 isActive=schedule["isActive"]
             )
             task.setTaskID(scheduler.SCH_Add_Task(task.run, 0 , 1000))
+            print("add id: ", task.getTaskID())
             taskList[task.taskID] = task
         elif schedule["action"] == "update":
             task = taskList[schedule["id"]]
@@ -88,7 +89,8 @@ def message(client, feed_id, payload):
         elif schedule["action"] == "delete":
             task = taskList[schedule["id"]]
             task.setActiveState(False)
-            scheduler.SCH_tasks_G.remove(task.processID)
+            print("Remove ID: ", task.getTaskID())
+            scheduler.SCH_tasks_G.remove(task. task.getTaskID())
             taskList.pop(schedule["id"] , None)
 
 client = MQTTClient(AIO_USERNAME , AIO_KEY)

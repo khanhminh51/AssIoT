@@ -37,6 +37,9 @@ class IrrigationTask():
     def setTaskID(self, taskID):
         self.processID = taskID
 
+    def getTaskID(self):
+        return self.process.ID
+
     def setActiveState(self, isActive):
         if self.isActive == True and isActive == False:
             # TODO: Turn off all Relay from 1..9
