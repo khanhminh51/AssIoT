@@ -50,7 +50,7 @@ class IrrigationTask():
         if self.state == IDLE_STATE:
             delay = self.startTime - self.time_now()
             print(f"TaskID: {self.taskID}, delay: {delay}")
-            if delay < TICK and delay > -1 * TICK:
+            if delay <= TICK*5 and delay >= -1 * TICK * 5:
                 self.flag = True
 
             if self.flag == True:
