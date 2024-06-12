@@ -69,8 +69,8 @@ def message(client, feed_id, payload):
             task.setTaskID(scheduler.SCH_Add_Task(task.run, 0 , 1000))
             taskList[task.taskID] = task
         elif schedule["action"] == "update":
-            task.setActiveState(False)
             task = taskList[schedule["id"]]
+            task.setActiveState(False)
             task.name=schedule["schedulerName"],
             task.area=schedule["area"],
             task.cycle=schedule["cycle"],
@@ -84,8 +84,8 @@ def message(client, feed_id, payload):
             task.isActive=schedule["isActive"]
 
         elif schedule["action"] == "delete":
-            task.setActiveState(False)
             task = taskList[schedule["id"]]
+            task.setActiveState(False)
             schedule.SCH_tasks_G.remove(task.processID)
             taskList.pop(schedule["id"] , None)
 
