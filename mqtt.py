@@ -70,20 +70,20 @@ def message(client, feed_id, payload):
             taskList[task.taskID] = task
         elif schedule["action"] == "update":
             task = taskList[schedule["id"]]
-            print("task from update: ", task)
-            print(task.startTime)
             task.setActiveState(False)
-            task.name=schedule["schedulerName"],
-            task.area=schedule["area"],
-            task.cycle=schedule["cycle"],
-            task.startTime=Helper.time_parse(Helper, schedule["startTime"]),
-            task.endTime=Helper.time_parse(Helper, schedule["stopTime"]),
-            task.mix1=schedule["flow1"],
-            task.mix2=schedule["flow2"],
-            task.mix3=schedule["flow3"],
-            task.pumpIn=schedule["pumpIn"],
-            task.pumpOut=schedule["pumpIn"] + schedule["flow1"] + schedule["flow2"] + schedule["flow3"],
-            task.isActive=schedule["isActive"]
+            task.setValue(
+                name=schedule["schedulerName"],
+                area=schedule["area"],
+                cycle=schedule["cycle"],
+                startTime=Helper.time_parse(Helper, schedule["startTime"]),
+                endTime=Helper.time_parse(Helper, schedule["stopTime"]),
+                mix1=schedule["flow1"],
+                mix2=schedule["flow2"],
+                mix3=schedule["flow3"],
+                pumpIn=schedule["pumpIn"],
+                pumpOut=schedule["pumpIn"] + schedule["flow1"] + schedule["flow2"] + schedule["flow3"],
+                isActive=schedule["isActive"]
+            )
 
         elif schedule["action"] == "delete":
             task = taskList[schedule["id"]]

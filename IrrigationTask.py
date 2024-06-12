@@ -19,7 +19,21 @@ class IrrigationTask():
         self.isActive = isActive
         self.taskID = id
         self.processID = -1
-
+    def setvalue(self, id, name, area, cycle, startTime, endTime, mix1, mix2, mix3, pumpIn, pumpOut, isActive):
+        self.name = name
+        self.cycle =  cycle
+        self.startTime = startTime
+        self.endTime = endTime
+        self.flag = False
+        self.timer = 0 # increase time every tick --> 1 tick = 0.5s
+        self.state = IDLE_STATE
+        self.mix1 = mix1 # time for mixer1
+        self.mix2 = mix2 # time for mixer2
+        self.mix3 = mix3 # time for mixer3
+        self.pumpIn = pumpIn # time for pump in
+        self.pumpOut = pumpOut # time for pump out
+        self.area = area # ID: 4-area1, 5-area2, 6-area3
+        self.isActive = isActive
     def setTaskID(self, taskID):
         self.processID = taskID
 

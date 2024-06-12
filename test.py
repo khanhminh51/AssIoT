@@ -52,9 +52,9 @@ for schedule in irrigation_schedule:
     taskList[task.taskID] = task
 
 scheduler.SCH_Start()
-# print(taskList[0].name)
-# for i in taskList:
-#     print(i)
-#     print(taskList[i].taskID)
-# time.sleep(5)
-# taskList[0].isActive = False
+print(taskList[0].name)
+for i in taskList:
+    print(i)
+    print(taskList[i].taskID)
+time.sleep(5)
+taskList[0].isActive = False
