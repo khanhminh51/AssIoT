@@ -38,7 +38,7 @@ class IrrigationTask():
         self.processID = taskID
 
     def getTaskID(self):
-        return self.process.ID
+        return self.processID
 
     def setActiveState(self, isActive):
         if self.isActive == True and isActive == False:
