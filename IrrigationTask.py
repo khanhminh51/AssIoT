@@ -1,6 +1,6 @@
 from constants import *
-from Helper import *
 from rs485 import *
+from datetime import *
 class IrrigationTask():
     def __init__(self, id, name, area, cycle, startTime, endTime, mix1, mix2, mix3, pumpIn, pumpOut, isActive):
         self.name = name
@@ -48,7 +48,7 @@ class IrrigationTask():
         print(self.state)
         self.timer += TICK/1000
         if self.state == IDLE_STATE:
-            delay = self.startTime - Helper.time_now(Helper)
+            delay = self.startTime - self.time_now()
             print(f"TaskID: {self.taskID}, delay: {delay}")
             if delay < TICK and delay > -1 * TICK:
                 self.flag = True
@@ -131,3 +131,11 @@ class IrrigationTask():
                 # TODO: Turn off Pump-out, then send notification to mobile app through Adafruit
 
                 self.timer = 0
+    def time_now(self):
+        now = datetime.now()
+        current_hour = now.hour
+        current_minute = now.minute
+        current_second = now.second
+
+        # Chuyển đổi giờ, phút, giây thành miligiây
+        return (current_hour * 3600 + current_minute * 60 + current_second) * 1000

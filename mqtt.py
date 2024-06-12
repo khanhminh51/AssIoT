@@ -6,11 +6,21 @@ from Helper import *
 from Scheduler import *
 from IrrigationTask import *
 
+def readTempTask():
+    temp = readTemperature()   
+    publishdata("temp", temp)
+
+def readHumiTask():
+    humi = readMoisture()
+    publishdata("humi", humi)
+
 AIO_FEED_IDs = ["relay", ]
 AIO_USERNAME = "minhpham51"
 AIO_KEY = ""
 
 scheduler = IoT_Scheduler()
+scheduler.SCH_Add_Task(readHumiTask, 0, 5000)
+scheduler.SCH_Add_Task(readTempTask, 0, 5000)
 taskList = {}
 scheduler.SCH_Start()
 
