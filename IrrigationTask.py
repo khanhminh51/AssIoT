@@ -56,7 +56,7 @@ class IrrigationTask():
             self.flag  = False
             self.state = IDLE_STATE
             # TODO: publish message if need
-            self.client.publishdata("noti", "Tạm dừng lịch tưới thành công!")
+            self.publishdata("noti", "Tạm dừng lịch tưới thành công!")
             pass
         self.isActive = isActive
 
@@ -78,7 +78,7 @@ class IrrigationTask():
                 print(f"TaskID: {self.taskID}, IDLE Timeout --> Next state ${self.state}")
                 # TODO: Turn on Mixer1: Relay ID=1, then send notification to mobile app through Adafruit
                 set_MIX1_STATE(True)
-                self.client.publishdata("noti", "Bắt đầu trộn mixer 1")
+                self.publishdata("noti", "Bắt đầu trộn mixer 1")
 
 
         elif self.state == MIX1_STATE:
@@ -93,10 +93,10 @@ class IrrigationTask():
                 print(f"TaskID: {self.taskID}, Mixer1 Timeout --> Next state ${self.state}")
                 # TODO: Turn off Mixer1: Relay ID=1, then send notification to mobile app through Adafruit
                 set_MIX1_STATE(False)
-                self.client.publishdata("noti", "Trộn mixer 1 thành công!")
+                self.publishdata("noti", "Trộn mixer 1 thành công!")
                 # TODO: Turn on Mixer2: Relay ID=2, then send notification to mobile app through Adafruit
                 set_MIX2_STATE(True)
-                self.client.publishdata("noti", "Bắt đầu trộn mixer 2")
+                self.publishdata("noti", "Bắt đầu trộn mixer 2")
         elif self.state == MIX2_STATE:
 
             if self.timer >= self.mix2:
@@ -109,10 +109,10 @@ class IrrigationTask():
                 print(f"TaskID: {self.taskID}, Mixer2 Timeout --> Next state ${self.state}")
                 # TODO: Turn off Mixer2: Relay ID=2, then send notification to mobile app through Adafruit
                 set_MIX2_STATE(False)
-                self.client.publishdata("noti", "Trộn mixer 2 thành công!")
+                self.publishdata("noti", "Trộn mixer 2 thành công!")
                 # TODO: Turn on Mixer3: Relay ID=3, then send notification to mobile app through Adafruit
                 set_MIX3_STATE(True)
-                self.client.publishdata("noti", "Bắt đầu trộn mixer 3")
+                self.publishdata("noti", "Bắt đầu trộn mixer 3")
         elif self.state == MIX3_STATE:
 
             if self.timer >= self.mix3:
@@ -125,10 +125,10 @@ class IrrigationTask():
                 print(f"TaskID: {self.taskID}, Mixer3 Timeout --> Next state ${self.state}")
                 # TODO: Turn off Mixer3: Relay ID=3, then send notification to mobile app through Adafruit
                 set_MIX3_STATE(False)
-                self.client.publishdata("noti", "Trộn mixer 3 thành công!")               
+                self.publishdata("noti", "Trộn mixer 3 thành công!")               
                 # TODO: Turn on PUMP_IN: Relay ID=7, then send notification to mobile app through Adafruit
                 set_PUMP_IN_STATE(True)
-                self.client.publishdata("noti", "Bắt đầu bơm nước vào bể trộn")
+                self.publishdata("noti", "Bắt đầu bơm nước vào bể trộn")
         elif self.state == PUMP_IN_STATE:
 
             if self.timer >= self.pumpIn:
@@ -141,7 +141,7 @@ class IrrigationTask():
                 print(f"TaskID: {self.taskID}, PUMP_IN Timeout --> Next state ${self.state}")
                 # TODO: Turn off PUMP_IN: Relay ID=7, then send notification to mobile app through Adafruit
                 set_PUMP_IN_STATE(False)
-                self.client.publishdata("noti", "Bơm nước vào bể trộn thành công!")               
+                self.publishdata("noti", "Bơm nước vào bể trộn thành công!")               
                 print(f"TaskID: {self.taskID}, OPEN area ${self.area}")
                 # TODO: Turn on Area: Relay ID=self.area, then send notification to mobile app through Adafruit
                 if self.area == 1:
@@ -150,7 +150,7 @@ class IrrigationTask():
                     set_AREA2_STATE(True)
                 elif self.area == 3:
                     set_AREA3_STATE(True)
-                self.client.publishdata("noti", f"Bắt đầu bơm vào khu vực {self.area}") 
+                self.publishdata("noti", f"Bắt đầu bơm vào khu vực {self.area}") 
                 # TODO: Turn on PUMP_OUT: Relay ID=8, then send notification to mobile app through Adafruit
                 set_PUMP_OUT_STATE(True)
         elif self.state == PUMP_OUT_STATE:
@@ -164,7 +164,7 @@ class IrrigationTask():
                     self.flag = False
                     # TODO: Turn on Mixer1, then send notification to mobile app through Adafruit
                     set_MIX1_STATE(True)
-                    self.client.publishdata("noti","Bắt đầu lại chu kỳ, trộn mixer 1")
+                    self.publishdata("noti","Bắt đầu lại chu kỳ, trộn mixer 1")
                 else:
                     self.state = IDLE_STATE
                     self.flag = False
@@ -182,7 +182,7 @@ class IrrigationTask():
                     set_AREA3_STATE(False)
                 # TODO: Turn off Pump-out, then send notification to mobile app through Adafruit
                 set_PUMP_OUT_STATE(False)
-                self.client.publishdata("noti","Kết thúc lịch tưới")
+                self.publishdata("noti","Kết thúc lịch tưới")
                 self.timer = 0
     def time_now(self):
         now = datetime.now()
@@ -192,3 +192,6 @@ class IrrigationTask():
 
         # Chuyển đổi giờ, phút, giây thành miligiây
         return (current_hour * 3600 + current_minute * 60 + current_second) * 1000
+    def publishdata(self, sensor_type, data):
+        if sensor_type == "noti":
+            self.client.publish("notification", data)
