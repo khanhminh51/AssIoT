@@ -14,7 +14,7 @@ def readHumiTask():
     humi = readMoisture()
     publishdata("humi", humi)
 
-AIO_FEED_IDs = ["relay",]
+AIO_FEED_IDs = ["relay", "irrigation"]
 AIO_USERNAME = "minhpham51"
 AIO_KEY = ""
 
@@ -88,7 +88,7 @@ def message(client, feed_id, payload):
         elif schedule["action"] == "delete":
             task = taskList[schedule["id"]]
             task.setActiveState(False)
-            schedule.SCH_tasks_G.remove(task.processID)
+            scheduler.SCH_tasks_G.remove(task.processID)
             taskList.pop(schedule["id"] , None)
 
 client = MQTTClient(AIO_USERNAME , AIO_KEY)
