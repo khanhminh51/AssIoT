@@ -43,6 +43,7 @@ def publishdata(sensor_type, data):
         client.publish("humidity", data)
     elif sensor_type == "noti":
         client.publish("notification", data)
+    print(data)
 
 
 def message(client, feed_id, payload):
@@ -66,7 +67,8 @@ def message(client, feed_id, payload):
                 mix3=schedule["flow3"],
                 pumpIn=schedule["pumpIn"],
                 pumpOut=schedule["pumpIn"] + schedule["flow1"] + schedule["flow2"] + schedule["flow3"],
-                isActive=schedule["isActive"]
+                isActive=schedule["isActive"],
+                client=client
             )
             task.setTaskID(scheduler.SCH_Add_Task(task.run, 0 , 1000))
             taskList[task.taskID] = task
