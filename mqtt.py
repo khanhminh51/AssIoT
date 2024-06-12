@@ -3,10 +3,8 @@ from Adafruit_IO import MQTTClient
 import time
 from rs485 import *
 from Helper import *
-import json
 
-
-AIO_FEED_IDs = ["relay"]
+AIO_FEED_IDs = ["relay", ]
 AIO_USERNAME = "minhpham51"
 AIO_KEY = ""
 
@@ -38,86 +36,13 @@ def publishdata(sensor_type, data):
         client.publish("humidity", data)
     time.sleep(1)
 
-def handlepayload(payload):
-    if not payload:
-        raise ValueError("Empty payload received")
-    data = json.loads(payload)
-        
-    type_value = data.get("type")
-    id_value = data.get("id")
-    state_value = data.get("state")
-
-    return type_value, id_value, state_value
-
 
 def message(client, feed_id, payload):
     print("Nhan du lieu: " + payload + ", feed id: " + feed_id)
     if feed_id == "relay":
-        data = json.loads(payload)
-        type_value = data.get("type")
-        id_value = data.get("id")
-        state_value = data.get("state")
-        print(payload)
-        # type_value, id_value, state_value =handlepayload(payload)
-        print(type_value)
-        if type_value == "mixer":
-            if id_value == 1:
-                if state_value == 255:
-                    print("Mixer 1 on")
-                    print(set_MIX1_STATE(True))
-                elif state_value == 0:
-                    print("Mixer 1 off")
-                    print(set_MIX1_STATE(False))
-            elif id_value == 2:
-                if state_value == 255:
-                    print("Mixer 2 on")
-                    print(set_MIX2_STATE(True))
-                elif state_value == 0:
-                    print("Mixer 2 off")
-                    print(set_MIX2_STATE(False))
-            elif id_value == 3:
-                if state_value == 255:
-                    print("Mixer 3 on")
-                    print(set_MIX3_STATE(True))
-                elif state_value == 0:
-                    print("Mixer 3 off")
-                    print(set_MIX3_STATE(False))
-        elif type_value == "area":
-            if id_value == 1:
-                if state_value == 255:
-                    print("Area 1 on")
-                    print(set_AREA1_STATE(True))
-                elif state_value == 0:
-                    print("Area 1 off")
-                    print(set_AREA1_STATE(False))
-            elif id_value == 2:
-                if state_value == 255:
-                    print("Area 2 on")
-                    print(set_AREA2_STATE(True))
-                elif state_value == 0:
-                    print("Area 2 off")
-                    print(set_AREA2_STATE(False))
-            elif id_value == 3:
-                if state_value == 255:
-                    print("Area 3 on")
-                    print(set_AREA3_STATE(True))
-                elif state_value == 0:
-                    print("Area 3 off")
-                    print(set_AREA3_STATE(False))
-        elif type_value == "pump":
-            if id_value == 1:
-                if state_value == 255:
-                    print("Pump in on")
-                    print(set_PUMP_IN_STATE(True))
-                elif state_value == 0:
-                    print("Pump in off")
-                    print(set_PUMP_IN_STATE(False))
-            elif id_value == 2:
-                if state_value == 255:
-                    print("Pump out on")
-                    print(set_PUMP_OUT_STATE(True))
-                elif state_value == 0:
-                    print("Pump out off")
-                    print(set_PUMP_OUT_STATE(False))                 
+        Helper.handleRelay()
+    elif feed_id == "irrigation":
+        Helper.handleIrrigation()
+        
 
 client.on_message = message

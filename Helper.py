@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from rs485 import *
 class Helper():
     def time_now(self):
         now = datetime.now()
@@ -21,16 +22,98 @@ class Helper():
     
 
     #"{"type":"area", "id":1, "state":255}"
-    def handlepayload(payload):
+    def handlePayloadRelay(payload):
         if not payload:
             raise ValueError("Empty payload received")
         data = json.loads(payload)
-        
         type_value = data.get("type")
         id_value = data.get("id")
         state_value = data.get("state")
-
         return type_value, id_value, state_value
+
+    def handlePayloadIrrigation(payload):
+        if not payload:
+            raise ValueError("Empty payload received")
+        data = json.loads(payload)
+        action_value = data.get("action")
+        id_value = data.get("id")
+        flow1_value = data.get("flow1")
+        flow2_value = data.get("flow2")
+        flow3_value = data.get("flow3")
+        pumpIn_value = data.get("pumpIn")
+        area_value = data.get("area")
+        isActive_value = data.get("isActive")
+        startTime_value = data.get("startTime")
+        stopTime_value = data.get("stopTime")
+
+        return action_value, id_value, flow1_value, flow2_value, flow3_value, pumpIn_value, area_value, isActive_value, startTime_value, stopTime_value
+
+    def handleRelay(self,payload):
+        type_value, id_value, state_value = self.handlePayloadRelay(payload)
+        if type_value == "mixer":
+            if id_value == 1:
+                if state_value == 1:
+                    print("Mixer 1 on")
+                    print(set_MIX1_STATE(True))
+                elif state_value == 0:
+                    print("Mixer 1 off")
+                    print(set_MIX1_STATE(False))
+            elif id_value == 2:
+                if state_value == 1:
+                    print("Mixer 2 on")
+                    print(set_MIX2_STATE(True))
+                elif state_value == 0:
+                    print("Mixer 2 off")
+                    print(set_MIX2_STATE(False))
+            elif id_value == 3:
+                if state_value == 1:
+                    print("Mixer 3 on")
+                    print(set_MIX3_STATE(True))
+                elif state_value == 0:
+                    print("Mixer 3 off")
+                    print(set_MIX3_STATE(False))
+        elif type_value == "area":
+            if id_value == 1:
+                if state_value == 1:
+                    print("Area 1 on")
+                    print(set_AREA1_STATE(True))
+                elif state_value == 0:
+                    print("Area 1 off")
+                    print(set_AREA1_STATE(False))
+            elif id_value == 2:
+                if state_value == 1:
+                    print("Area 2 on")
+                    print(set_AREA2_STATE(True))
+                elif state_value == 0:
+                    print("Area 2 off")
+                    print(set_AREA2_STATE(False))
+            elif id_value == 3:
+                if state_value == 1:
+                    print("Area 3 on")
+                    print(set_AREA3_STATE(True))
+                elif state_value == 0:
+                    print("Area 3 off")
+                    print(set_AREA3_STATE(False))
+        elif type_value == "pump":
+            if id_value == 1:
+                if state_value == 1:
+                    print("Pump in on")
+                    print(set_PUMP_IN_STATE(True))
+                elif state_value == 0:
+                    print("Pump in off")
+                    print(set_PUMP_IN_STATE(False))
+            elif id_value == 2:
+                if state_value == 1:
+                    print("Pump out on")
+                    print(set_PUMP_OUT_STATE(True))
+                elif state_value == 0:
+                    print("Pump out off")
+                    print(set_PUMP_OUT_STATE(False))
+
+    def handleIrrigation(self, payload):
+        action_value, id_value, flow1_value, flow2_value, flow3_value, pumpIn_value, area_value, isActive_value, startTime_value, stopTime_value = self.handlePayloadIrrigation(payload)
+
+
 
 
     
