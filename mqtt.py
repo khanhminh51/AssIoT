@@ -41,7 +41,6 @@ def publishdata(sensor_type, data):
         client.publish("temperature", data)
     elif sensor_type == "humi":
         client.publish("humidity", data)
-    time.sleep(1)
 
 
 def message(client, feed_id, payload):
