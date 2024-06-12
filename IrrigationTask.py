@@ -57,6 +57,7 @@ class IrrigationTask():
                 self.state = MIX1_STATE
                 self.timer = 0
                 self.flag = False
+                print(f"TaskID: {self.taskID}, IDLE Timeout --> Next state ${self.state}")
                 # TODO: Turn on Mixer1: Relay ID=1, then send notification to mobile app through Adafruit
                 set_MIX1_STATE(True)
 
@@ -69,6 +70,7 @@ class IrrigationTask():
                 self.state = MIX2_STATE
                 self.timer = 0
                 self.flag = False
+                print(f"TaskID: {self.taskID}, Mixer1 Timeout --> Next state ${self.state}")
                 # TODO: Turn off Mixer1: Relay ID=1, then send notification to mobile app through Adafruit
                 # TODO: Turn on Mixer2: Relay ID=2, then send notification to mobile app through Adafruit
         elif self.state == MIX2_STATE:
@@ -80,6 +82,7 @@ class IrrigationTask():
                 self.state = MIX3_STATE
                 self.timer = 0
                 self.flag = False
+                print(f"TaskID: {self.taskID}, Mixer2 Timeout --> Next state ${self.state}")
                 # TODO: Turn off Mixer2: Relay ID=2, then send notification to mobile app through Adafruit
                 # TODO: Turn on Mixer3: Relay ID=3, then send notification to mobile app through Adafruit
 
@@ -92,6 +95,7 @@ class IrrigationTask():
                 self.state = PUMP_IN_STATE
                 self.timer = 0
                 self.flag = False
+                print(f"TaskID: {self.taskID}, Mixer3 Timeout --> Next state ${self.state}")
                 # TODO: Turn off Mixer3: Relay ID=3, then send notification to mobile app through Adafruit
                 # TODO: Turn on PUMP_IN: Relay ID=7, then send notification to mobile app through Adafruit
         elif self.state == PUMP_IN_STATE:
@@ -103,8 +107,10 @@ class IrrigationTask():
                 self.state = PUMP_OUT_STATE
                 self.timer = 0
                 self.flag = False
+                print(f"TaskID: {self.taskID}, PUMP_IN Timeout --> Next state ${self.state}")
                 # TODO: Turn off PUMP_IN: Relay ID=7, then send notification to mobile app through Adafruit
                 set_PUMP_IN_STATE(False)
+                print(f"TaskID: {self.taskID}, OPEN area ${self.area}")
                 # TODO: Turn on Area: Relay ID=self.area, then send notification to mobile app through Adafruit
                 
                 # TODO: Turn on PUMP_OUT: Relay ID=8, then send notification to mobile app through Adafruit
@@ -125,7 +131,8 @@ class IrrigationTask():
                     self.flag = False
 
                     # TODO: Done, send notification to mobile 
-
+                print(f"TaskID: {self.taskID}, PUMP_OUT Timeout --> Next state ${self.state}")
+                print(f"TaskID: {self.taskID}, CLOSE area ${self.area}")
                 # TODO: Turn off Area: Relay ID=self.area, then send notification to mobile app through Adafruit
 
                 # TODO: Turn off Pump-out, then send notification to mobile app through Adafruit
