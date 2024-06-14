@@ -41,9 +41,7 @@ def publishdata(sensor_type, data):
         client.publish("temperature", data)
     elif sensor_type == "humi":
         client.publish("humidity", data)
-    elif sensor_type == "noti":
-        client.publish("notification", data)
-    print(data)
+
 
 
 def message(client, feed_id, payload):
